@@ -24,8 +24,6 @@ export default function HomeScreen({ navigation: { navigate } }: Props) {
 	const [{ loading: loadingTvShows, data: tvShows }, fetchTvShows] = useTvShows();
 
 	useEffectOnce(() => {
-		Icon.loadFont();
-
 		fetchPopularMovies();
 		fetchTvShows();
 	});

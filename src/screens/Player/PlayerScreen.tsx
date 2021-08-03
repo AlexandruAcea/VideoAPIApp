@@ -22,7 +22,7 @@ export function PlayerScreen({ item, goBack }: Props) {
 
 	useEffect(() => {
 		// Setting orientation on render
-		// Orientation.lockToLandscape();
+		Orientation.lockToLandscape();
 
 		// And setting it back to portrait on destroy
 		return () => {
