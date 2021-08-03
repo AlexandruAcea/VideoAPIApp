@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Video, { OnLoadData, OnProgressData } from 'react-native-video';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { PlayerWrapper } from './PlayerScreen.style';
 import Orientation from 'react-native-orientation-locker';
 import { PlayerControls } from '../../components/PlayerControls/PlayerControls';
@@ -22,7 +22,7 @@ export function PlayerScreen({ item, goBack }: Props) {
 
 	useEffect(() => {
 		// Setting orientation on render
-		// Orientation.lockToLandscape();
+		Orientation.lockToLandscape();
 
 		// And setting it back to portrait on destroy
 		return () => {
@@ -30,7 +30,8 @@ export function PlayerScreen({ item, goBack }: Props) {
 		};
 	}, []);
 
-	const ref = useRef(null);
+	const ref = useRef<Video>(null);
+
 	const mockTrailer = {
 		uri: 'https://rawgit.com/mediaelement/mediaelement-files/master/big_buck_bunny.mp4',
 	};
@@ -43,10 +44,11 @@ export function PlayerScreen({ item, goBack }: Props) {
 	});
 
 	useEffect(() => {
+		const videoRef = ref.current;
+
 		return () => {
 			setPaused(true);
-			// @ts-ignore
-			ref.current.seek(0);
+			if (videoRef) videoRef.seek(0);
 		};
 	}, []);
 
@@ -65,7 +67,6 @@ export function PlayerScreen({ item, goBack }: Props) {
 
 	function seekForward() {
 		if (ref.current) {
-			// @ts-ignore
 			ref.current.seek(currentTime + 10);
 			setCurrentTime(currentTime + 10);
 		}
@@ -73,16 +74,13 @@ export function PlayerScreen({ item, goBack }: Props) {
 
 	function seekBackward() {
 		if (ref.current) {
-			// @ts-ignore
 			ref.current.seek(currentTime - 10);
 			setCurrentTime(currentTime - 10);
 		}
 	}
 
 	function seekToTime(value: number) {
-		if (ref.current)
-			// @ts-ignore
-			ref.current.seek(value);
+		if (ref.current) ref.current.seek(value);
 		setCurrentTime(value);
 	}
 
@@ -90,35 +88,35 @@ export function PlayerScreen({ item, goBack }: Props) {
 		setPaused(true);
 	}
 
-	return (
-		item && (
-			<PlayerWrapper>
-				<Video
-					fullscreen
-					paused={paused}
-					source={mockTrailer}
-					ref={ref}
-					playInBackground={false}
-					fullscreenOrientation="landscape"
-					style={styles.backgroundVideo}
-					resizeMode="cover"
-					onEnd={onEnd}
-					onLoad={onLoadEnd}
-					onProgress={onProgress}
-				/>
+	return item ? (
+		<PlayerWrapper>
+			<Video
+				fullscreen
+				paused={paused}
+				source={mockTrailer}
+				ref={ref}
+				playInBackground={false}
+				fullscreenOrientation="landscape"
+				style={styles.backgroundVideo}
+				resizeMode="cover"
+				onEnd={onEnd}
+				onLoad={onLoadEnd}
+				onProgress={onProgress}
+			/>
 
-				<PlayerControls
-					seekToTime={seekToTime}
-					currentTime={currentTime}
-					duration={duration}
-					title={item?.title}
-					isPlaying={!paused}
-					goBack={goBack}
-					seekForward={seekForward}
-					seekBackward={seekBackward}
-					togglePlayPause={togglePlayPause}
-				/>
-			</PlayerWrapper>
-		)
+			<PlayerControls
+				seekToTime={seekToTime}
+				currentTime={currentTime}
+				duration={duration}
+				title={item?.title}
+				isPlaying={!paused}
+				goBack={goBack}
+				seekForward={seekForward}
+				seekBackward={seekBackward}
+				togglePlayPause={togglePlayPause}
+			/>
+		</PlayerWrapper>
+	) : (
+		<View />
 	);
 }
