@@ -5,9 +5,9 @@ import { Store } from './Store';
 
 export function App() {
 	return (
-    <Store>
-        <Status/>
-        <Router />
-    </Store>
+		<Store>
+			<Status />
+			<Router />
+		</Store>
 	);
 }

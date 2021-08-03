@@ -8,11 +8,11 @@ export function useMovies(): OperationResult<MovieItem[]> {
 	const dispatch = useDispatch();
 
 	const [{ loading, error }] = useActivity(ActionTypes.GET_POPULAR_MOVIES);
-	const data = useSelector(state => selectPopularMovies(state.data.movies));
+	const data = useSelector((state) => selectPopularMovies(state.data.movies));
 
 	function handler() {
-        dispatch(getPopularMovies());
-    }
+		dispatch(getPopularMovies());
+	}
 
 	return [{ loading, error, data }, handler];
 }

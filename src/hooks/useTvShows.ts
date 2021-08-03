@@ -8,12 +8,12 @@ export function useTvShows(): OperationResult<TVShowItem[], (genreiId?: number) 
 	const dispatch = useDispatch();
 
 	const [{ loading, error }] = useActivity(ActionTypes.GET_TV_SHOWS);
-	const data = useSelector(state => selectTvShows(state.data.tvShows));
+	const data = useSelector((state) => selectTvShows(state.data.tvShows));
 
 	function handler(genreId?: number) {
-		if(genreId) dispatch(getTvShows(genreId));
-        else dispatch(getTvShows());
-    }
+		if (genreId) dispatch(getTvShows(genreId));
+		else dispatch(getTvShows());
+	}
 
 	return [{ loading, error, data }, handler];
 }

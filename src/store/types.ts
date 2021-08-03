@@ -11,8 +11,7 @@ export type ApplicationActions =
 	| MovieActions
 	| TvShowsActions
 	| ActivityActions
-	| ItemToViewActions
-
+	| ItemToViewActions;
 
 export type Thunk = ThunkAction<Promise<void>, ApplicationState, ThunkContext, ApplicationActions>;
 export type ThunkDispatch = Dispatch<ApplicationState, ThunkContext, ApplicationActions>;

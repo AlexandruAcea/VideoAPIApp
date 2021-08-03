@@ -10,10 +10,10 @@ interface ActivityConfigParams {
 
 export function useActivity(type: string, params?: ActivityConfigParams): ActivityResult {
 	const [error, setError] = useState<Nullable<ActivityError>>(null);
-	const loading = useSelector(state =>
+	const loading = useSelector((state) =>
 		selectActivity(state.ui.activities, type, params?.payload)
 	);
-	const details = useSelector(state => selectErrorDetails(state.ui.activities, type));
+	const details = useSelector((state) => selectErrorDetails(state.ui.activities, type));
 
 	useEffect(() => {
 		if (details && !error) {

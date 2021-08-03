@@ -5,7 +5,7 @@ export enum Stacks {
 export enum Routes {
 	Home = 'HomeScreen',
 	ViewMovie = 'ViewMovieScreen',
-	Search = 'Search'
+	Search = 'Search',
 }
 
 export type MainStackParams = {

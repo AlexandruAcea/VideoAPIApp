@@ -11,12 +11,12 @@ export const API_KEY = 'fb57e7c04f9d54b784918942c2f3d521';
 
 export enum OS {
 	Android = 'android',
-	iOS = 'ios'
+	iOS = 'ios',
 }
 
 export enum KeyboardEvent {
 	DidShow = 'keyboardDidShow',
-	DidHide = 'keyboardDidHide'
+	DidHide = 'keyboardDidHide',
 }
 
 export enum KeyboardType {
@@ -25,7 +25,7 @@ export enum KeyboardType {
 	DecimalPad = 'decimal-pad',
 	Numeric = 'numeric',
 	Email = 'email-address',
-	Phone = 'phone-pad'
+	Phone = 'phone-pad',
 }
 
 export enum ReturnKey {
@@ -34,11 +34,11 @@ export enum ReturnKey {
 	Search = 'search',
 	Send = 'send',
 	Go = 'go',
-	Default = 'default'
+	Default = 'default',
 }
 
 export enum KeyboardKey {
-	Backspace = 'Backspace'
+	Backspace = 'Backspace',
 }
 
 export enum ResizeMode {
@@ -46,11 +46,11 @@ export enum ResizeMode {
 	Cover = 'cover',
 	Stretch = 'stretch',
 	Repeat = 'repeat',
-	Center = 'center'
+	Center = 'center',
 }
 
 export enum SoftInputMode {
 	Resize = 'resize',
 	Pan = 'pan',
-	Nothing = 'nothing'
+	Nothing = 'nothing',
 }

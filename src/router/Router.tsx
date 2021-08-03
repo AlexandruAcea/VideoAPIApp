@@ -9,7 +9,7 @@ import Orientation from 'react-native-orientation-locker';
 import { SearchScreen } from '../screens/SearchScreen';
 
 const defaultScreenOptions = {
-	headerShown: false
+	headerShown: false,
 };
 
 export const isReadyRef = React.createRef<boolean>();
@@ -20,26 +20,30 @@ interface Params {
 }
 
 export const Navigation = {
-	navigate: function(route: string, params?: Params) {
+	navigate: function (route: string, params?: Params) {
 		if (isReadyRef.current && navigationRef.current) {
 			navigationRef.current?.navigate(route, params);
 		}
-	}
+	},
 };
 
 const MainStackNavigator = createNativeStackNavigator<MainStackParams>();
 
 function MainNavigator() {
-    return (
-		<MainStackNavigator.Navigator screenOptions={defaultScreenOptions} >
+	return (
+		<MainStackNavigator.Navigator screenOptions={defaultScreenOptions}>
 			<MainStackNavigator.Screen name={Routes.Home} component={HomeScreen} />
-			<MainStackNavigator.Screen name={Routes.ViewMovie} component={DetailsScreen} options={{gestureEnabled: false}}/>
-            <MainStackNavigator.Screen name={Routes.Search} component={SearchScreen} />
+			<MainStackNavigator.Screen
+				name={Routes.ViewMovie}
+				component={DetailsScreen}
+				options={{ gestureEnabled: false }}
+			/>
+			<MainStackNavigator.Screen name={Routes.Search} component={SearchScreen} />
 		</MainStackNavigator.Navigator>
 	);
-   }
+}
 
- export function Router(){
+export function Router() {
 	useEffect(() => {
 		// Making sure the screen is always in portrait more expect ofr the trailer view!
 		Orientation.lockToPortrait();
@@ -56,21 +60,16 @@ function MainNavigator() {
 		SplashScreen.hide();
 	}
 
-   return (
-         <NavigationContainer
-         ref={navigationRef}
-         onReady={handleReady}
-    >
-        <MainStackNavigator.Navigator screenOptions={defaultScreenOptions}>
-					<MainStackNavigator.Screen
-						options={{ stackAnimation: 'none' }}
-                        // @ts-ignore
-						name={Stacks.Main}
-						component={MainNavigator}
-					/>
+	return (
+		<NavigationContainer ref={navigationRef} onReady={handleReady}>
+			<MainStackNavigator.Navigator screenOptions={defaultScreenOptions}>
+				<MainStackNavigator.Screen
+					options={{ stackAnimation: 'none' }}
+					// @ts-ignore
+					name={Stacks.Main}
+					component={MainNavigator}
+				/>
 			</MainStackNavigator.Navigator>
-        </NavigationContainer>
-
-
-   );
- }
+		</NavigationContainer>
+	);
+}

@@ -1,1 +1,1 @@
-export { Sizes } from './Sizes'
+export { Sizes } from './Sizes';

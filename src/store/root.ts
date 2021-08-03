@@ -10,22 +10,22 @@ export interface ApplicationState {
 	data: {
 		movies: Movies;
 		tvShows: TvShows;
-		itemToView: ItemToView
+		itemToView: ItemToView;
 	};
 	ui: {
-		activities: Activities
-	}
+		activities: Activities;
+	};
 }
 
 const appReducer = combineReducers<ApplicationState>({
 	data: combineReducers({
 		movies,
 		tvShows,
-		itemToView
+		itemToView,
 	}),
 	ui: combineReducers({
-		activities
-	})
+		activities,
+	}),
 });
 
 function rootReducer(state: ApplicationState | undefined, action: ApplicationActions) {
