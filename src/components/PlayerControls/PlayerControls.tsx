@@ -64,7 +64,7 @@ export function PlayerControls({
 	const [isSliding, setIsSliding] = useState(false);
 
 	useEffect(() => {
-		if (!isSliding) {
+		if (!isSliding && currentTime && duration) {
 			setChangingTime(currentTime);
 			setCurrentSlidingValue(currentTime / duration);
 		}
