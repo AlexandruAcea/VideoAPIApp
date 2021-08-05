@@ -10,7 +10,6 @@ import { CancelButtonWrapper, SearchField } from './SearchScreen.style';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MainStackParams, Routes } from '../../router';
-import { GoBack } from '../DetailsScreen/DetailsScreen.style';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export type SearchScreenNavigationProps = StackNavigationProp<MainStackParams, Routes.ViewMovie>;
