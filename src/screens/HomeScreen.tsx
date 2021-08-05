@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { useEffectOnce } from '../store/utils';
@@ -11,6 +11,7 @@ import { BottomCarousel } from '../components/BottomCarousel';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MainStackParams, Routes } from '../router';
+import { Alert } from 'react-native';
 
 export type HomeScreenNavigationProps = StackNavigationProp<MainStackParams, Routes.ViewMovie>;
 
@@ -19,13 +20,23 @@ interface Props {
 }
 
 export default function HomeScreen({ navigation: { navigate } }: Props) {
-	const [{ loading: loadingMovies, data: popularMovies }, fetchPopularMovies] = useMovies();
-	const [{ loading: loadingTvShows, data: tvShows }, fetchTvShows] = useTvShows();
+	const [
+		{ loading: loadingMovies, data: popularMovies, error: moviesError },
+		fetchPopularMovies,
+	] = useMovies();
+	const [{ loading: loadingTvShows, data: tvShows, error: showsError }, fetchTvShows] =
+		useTvShows();
 
 	useEffectOnce(() => {
 		fetchPopularMovies();
 		fetchTvShows();
 	});
+
+	useEffect(() => {
+		if (moviesError || showsError) {
+			Alert.alert('Error', 'An error occured while fetching the videos!');
+		}
+	}, [moviesError, showsError]);
 
 	function viewItemDetails() {
 		navigate(Routes.ViewMovie);
