@@ -21,7 +21,7 @@ export function SearchResultItem({ item, viewDetails }: Props) {
 		viewDetails();
 	}
 
-	// Turning
+	// Turning x out of 10 to x out of 5
 	const filledStars = Math.round(item.vote_average / 2);
 	const unFilledStars = 5 - filledStars;
 
