@@ -1,13 +1,23 @@
-import { debounce } from 'lodash';
 import React, { useCallback, useRef, useState } from 'react';
-import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
-import { Layout } from '../../components/core';
+import { debounce } from 'lodash';
+import { ScrollView } from 'react-native';
+import { Layout, Loader } from '../../components/core';
 import { Typography } from '../../components/core/Typography';
+import { SearchResultItem } from '../../components/SearchResults';
 import { DEFAULT_DEBOUNCE_TIME } from '../../consts';
 import { useSearchMovies } from '../../hooks';
 import { CancelButtonWrapper, SearchField } from './SearchScreen.style';
 
-export function SearchScreen() {
+import { StackNavigationProp } from '@react-navigation/stack';
+import { MainStackParams, Routes } from '../../router';
+
+export type SearchScreenNavigationProps = StackNavigationProp<MainStackParams, Routes.ViewMovie>;
+
+interface Props {
+	navigation: SearchScreenNavigationProps;
+}
+
+export function SearchScreen({ navigation: { navigate } }: Props) {
 	const inputRef = useRef(null);
 	const [{ data: searchResults, loading, error }, search] = useSearchMovies();
 
@@ -44,6 +54,10 @@ export function SearchScreen() {
 		debounceFunction(text);
 	}
 
+	function viewItemDetails() {
+		navigate(Routes.ViewMovie);
+	}
+
 	return (
 		<Layout.Screen style={{ paddingHorizontal: 20 }}>
 			{!inputFocused && (
@@ -57,6 +71,7 @@ export function SearchScreen() {
 			)}
 
 			<Layout.Block style={{ height: 50, marginTop: 15 }} direction="row" align="center">
+				{/* Controlled input */}
 				<SearchField
 					ref={inputRef}
 					value={inputValue}
@@ -64,6 +79,7 @@ export function SearchScreen() {
 					onBlur={onBlur}
 					onChangeText={onChange}
 				/>
+				{/* Just to have a cooler UI I added some conditionally rendered elements */}
 				{inputFocused && (
 					<Layout.Touchable onPress={onBlur}>
 						<CancelButtonWrapper>
@@ -77,6 +93,18 @@ export function SearchScreen() {
 					</Layout.Touchable>
 				)}
 			</Layout.Block>
+
+			<ScrollView style={{ marginTop: 10 }}>
+				{!inputValue ? null : loading ? (
+					<Loader />
+				) : !searchResults.length && inputValue ? (
+					<Typography.H5 color="white">Nothing found</Typography.H5>
+				) : (
+					searchResults.map((result, index) => (
+						<SearchResultItem key={index} item={result} viewDetails={viewItemDetails} />
+					))
+				)}
+			</ScrollView>
 		</Layout.Screen>
 	);
 }

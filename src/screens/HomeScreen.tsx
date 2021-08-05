@@ -5,7 +5,7 @@ import { useEffectOnce } from '../store/utils';
 import { Typography } from '../components/core/Typography';
 import { TopCarousel } from '../components/TopCarousel';
 import { useMovies, useTvShows } from '../hooks';
-import { Layout, Loader } from '../components/core';
+import { Layout } from '../components/core';
 import { CategorySelector } from '../components/CategorySelector';
 import { BottomCarousel } from '../components/BottomCarousel';
 

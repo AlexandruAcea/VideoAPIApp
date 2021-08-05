@@ -5,11 +5,11 @@ import { Actions, ActionTypes, State } from './types';
 
 export default (state: State = initialState, action: Actions): State => {
 	switch (action.type) {
-		case ActionTypes.GET_POPULAR_MOVIES: {
+		case ActionTypes.SEARCH_MOVIES: {
 			const { movies } = action.payload;
 
-			return produce(state, draft => {
-				draft.movies.popular = movies;
+			return produce(state, (draft) => {
+				draft.results = movies;
 			});
 		}
 
