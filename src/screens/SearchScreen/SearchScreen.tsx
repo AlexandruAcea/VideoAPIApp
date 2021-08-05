@@ -94,17 +94,21 @@ export function SearchScreen({ navigation: { navigate } }: Props) {
 				)}
 			</Layout.Block>
 
-			<ScrollView style={{ marginTop: 10 }}>
-				{!inputValue ? null : loading ? (
-					<Loader />
-				) : !searchResults.length && inputValue ? (
-					<Typography.H5 color="white">Nothing found</Typography.H5>
-				) : (
-					searchResults.map((result, index) => (
+			{!inputValue ? (
+				<Layout.Block flex={1} style={{ height: '100%' }} align="center" justify="center">
+					<Typography.Body color="white">Search for movies</Typography.Body>
+				</Layout.Block>
+			) : loading ? (
+				<Loader />
+			) : !searchResults.length && inputValue ? (
+				<Typography.H5 color="white">Nothing found</Typography.H5>
+			) : (
+				<ScrollView style={{ marginTop: 10 }}>
+					{searchResults.map((result, index) => (
 						<SearchResultItem key={index} item={result} viewDetails={viewItemDetails} />
-					))
-				)}
-			</ScrollView>
+					))}
+				</ScrollView>
+			)}
 		</Layout.Screen>
 	);
 }
