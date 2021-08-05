@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Video, { OnLoadData, OnProgressData } from 'react-native-video';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import Video, { OnLoadData, OnProgressData, LoadError } from 'react-native-video';
+import { Alert, Dimensions, StyleSheet, View } from 'react-native';
 import { PlayerWrapper } from './PlayerScreen.style';
 import Orientation from 'react-native-orientation-locker';
 import { PlayerControls } from '../../components/PlayerControls/PlayerControls';
@@ -88,6 +88,17 @@ export function PlayerScreen({ item, goBack }: Props) {
 		setPaused(true);
 	}
 
+	function alert(e: LoadError) {
+		if (e.error)
+			Alert.alert('Error', 'An error occured while trying to play the video', [
+				{
+					text: 'Go back',
+					style: 'cancel',
+					onPress: goBack,
+				},
+			]);
+	}
+
 	return item ? (
 		<PlayerWrapper>
 			<Video
@@ -102,6 +113,7 @@ export function PlayerScreen({ item, goBack }: Props) {
 				onEnd={onEnd}
 				onLoad={onLoadEnd}
 				onProgress={onProgress}
+				onError={alert}
 			/>
 
 			<PlayerControls

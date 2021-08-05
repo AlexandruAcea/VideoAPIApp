@@ -5,7 +5,7 @@ import { useEffectOnce } from '../store/utils';
 import { Typography } from '../components/core/Typography';
 import { TopCarousel } from '../components/TopCarousel';
 import { useMovies, useTvShows } from '../hooks';
-import { Layout } from '../components/core';
+import { Layout, Loader } from '../components/core';
 import { CategorySelector } from '../components/CategorySelector';
 import { BottomCarousel } from '../components/BottomCarousel';
 
@@ -19,7 +19,6 @@ interface Props {
 }
 
 export default function HomeScreen({ navigation: { navigate } }: Props) {
-	// I've made the loading states available but didn't have time to make use of them
 	const [{ loading: loadingMovies, data: popularMovies }, fetchPopularMovies] = useMovies();
 	const [{ loading: loadingTvShows, data: tvShows }, fetchTvShows] = useTvShows();
 
@@ -48,9 +47,20 @@ export default function HomeScreen({ navigation: { navigate } }: Props) {
 					</Layout.Touchable>
 				</Layout.Block>
 			</Layout.Block>
-			<TopCarousel movies={popularMovies} viewDetails={viewItemDetails} />
+
+			<TopCarousel
+				loading={loadingMovies}
+				movies={popularMovies}
+				viewDetails={viewItemDetails}
+			/>
+
 			<CategorySelector />
-			<BottomCarousel tvShows={tvShows} viewDetails={viewItemDetails} />
+
+			<BottomCarousel
+				loading={loadingTvShows}
+				tvShows={tvShows}
+				viewDetails={viewItemDetails}
+			/>
 		</Layout.Screen>
 	);
 }

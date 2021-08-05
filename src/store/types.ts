@@ -6,12 +6,14 @@ import { Actions as ActivityActions, ActivityError } from './ui/activities';
 import { Actions as MovieActions } from './data/movies';
 import { Actions as TvShowsActions } from './data/tvshows';
 import { Actions as ItemToViewActions } from './data/view';
+import { Actions as SearchActions } from './data/search';
 
 export type ApplicationActions =
 	| MovieActions
 	| TvShowsActions
 	| ActivityActions
-	| ItemToViewActions;
+	| ItemToViewActions
+	| SearchActions;
 
 export type Thunk = ThunkAction<Promise<void>, ApplicationState, ThunkContext, ApplicationActions>;
 export type ThunkDispatch = Dispatch<ApplicationState, ThunkContext, ApplicationActions>;

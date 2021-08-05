@@ -5,12 +5,14 @@ import { State as Activities, reducer as activities } from './ui/activities';
 import { State as Movies, reducer as movies } from './data/movies';
 import { State as TvShows, reducer as tvShows } from './data/tvshows';
 import { State as ItemToView, reducer as itemToView } from './data/view';
+import { State as Search, reducer as search } from './data/search';
 
 export interface ApplicationState {
 	data: {
 		movies: Movies;
 		tvShows: TvShows;
 		itemToView: ItemToView;
+		search: Search;
 	};
 	ui: {
 		activities: Activities;
@@ -22,6 +24,7 @@ const appReducer = combineReducers<ApplicationState>({
 		movies,
 		tvShows,
 		itemToView,
+		search,
 	}),
 	ui: combineReducers({
 		activities,
